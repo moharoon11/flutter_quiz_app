@@ -10,6 +10,18 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Text('Hello world');
+    return const SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'The question is....',
+            style: TextStyle(
+                color: Color.fromARGB(234, 242, 229, 229), fontSize: 20),
+          ),
+        ],
+      ),
+    );
   }
 }
