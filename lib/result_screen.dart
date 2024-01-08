@@ -19,6 +19,7 @@ class ResultScreen extends StatelessWidget {
       });
     }
 
+    print('printing summary data ======== $summary');
     return summary;
   }
 
