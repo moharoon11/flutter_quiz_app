@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/answer_button.dart';
+import 'package:quiz_app/questions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionScreen extends StatefulWidget {
   const QuestionScreen({super.key});
@@ -8,19 +11,46 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
+  var questionIndex = 0;
+
+  void answerQuestion() {
+    setState(() {
+      questionIndex++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    var currentQuestion = questions[questionIndex];
+
+    return SizedBox(
       width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'The question is....',
-            style: TextStyle(
-                color: Color.fromARGB(234, 242, 229, 229), fontSize: 20),
-          ),
-        ],
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              currentQuestion.text,
+              style: GoogleFonts.lato(
+                fontSize: 20,
+                color: const Color.fromARGB(255, 172, 128, 238),
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ...currentQuestion.getSuffledList().map((answer) {
+              return AnswerButton(
+                text: answer,
+                onTap: answerQuestion,
+              );
+            }),
+          ],
+        ),
       ),
     );
   }

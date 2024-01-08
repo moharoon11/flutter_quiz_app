@@ -1,17 +1,15 @@
-import 'package:flutter/material.dart';
-
-class QuizQuestion extends StatelessWidget {
+class QuizQuestion {
   const QuizQuestion(
     this.text,
-    this.answers, {
-    super.key,
-  });
+    this.answers,
+  );
 
   final String text;
   final List<String> answers;
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  List<String> getSuffledList() {
+    List<String> shuffeledList = List.of(answers);
+    shuffeledList.shuffle();
+    return shuffeledList;
   }
 }
