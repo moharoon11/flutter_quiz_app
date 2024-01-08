@@ -3,23 +3,24 @@ import 'package:quiz_app/question_summary.dart';
 import 'package:quiz_app/questions.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen(this.choosenAnswers, {super.key});
+  const ResultScreen(this.chosenAnswers, {super.key});
 
-  final List<String> choosenAnswers;
+  final List<String> chosenAnswers;
 
   List<Map<String, Object>> getSummaryData() {
-    List<Map<String, Object>> summary = [];
+    final List<Map<String, Object>> summary = [];
 
-    for (var i = 0; i < choosenAnswers.length; i++) {
-      summary.add({
-        'question_index': i,
-        'question': questions[i].text,
-        'correct_answer': questions[i].answers[0],
-        'choosen_answer': choosenAnswers[i],
-      });
+    for (var i = 0; i < chosenAnswers.length; i++) {
+      summary.add(
+        {
+          'question_index': i,
+          'question': questions[i].text,
+          'correct_answer': questions[i].answers[0],
+          'user_answer': chosenAnswers[i]
+        },
+      );
     }
 
-    print('printing summary data ======== $summary');
     return summary;
   }
 
