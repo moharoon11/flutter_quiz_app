@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/question_summary.dart';
+import 'package:quiz_app/question_summary/question_summary.dart';
 import 'package:quiz_app/questions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen(this.chosenAnswers, {super.key});
+  const ResultScreen(this.chosenAnswers, this.onRestart, {super.key});
 
   final List<String> chosenAnswers;
+  final void Function() onRestart;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
@@ -26,22 +28,45 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, Object>> summaryData = getSummaryData();
+    final int totalQuestions = questions.length;
+    final int noOfCorrectAnswers = summaryData
+        .where((data) => data['user_answer'] == data['correct_answer'])
+        .length;
+
     return SizedBox(
       width: double.infinity,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Text('You answered X out of Y questions correctly!'),
-        const SizedBox(
-          height: 30,
+        Text(
+          'You answered $noOfCorrectAnswers out of $totalQuestions questions correctly!',
+          style: GoogleFonts.lato(
+            color: const Color.fromARGB(255, 230, 200, 253),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
         ),
-        const Text('List of answers and questions...'),
         const SizedBox(
           height: 30,
         ),
         QuestionSummary(getSummaryData()),
-        TextButton(
-          onPressed: () {},
-          child: const Text('Restart Quiz!'),
-        )
+        const SizedBox(
+          height: 15,
+        ),
+        TextButton.icon(
+          onPressed: onRestart,
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+          label: const Text(
+            'Restart Quiz!',
+            style: TextStyle(
+              fontSize: 18,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          icon: const Icon(Icons.restart_alt, size: 28),
+        ),
       ]),
     );
   }

@@ -37,9 +37,16 @@ class _QuizScreenState extends State<QuizScreen> {
 
     if (selectedAnswers.length == questions.length) {
       setState(() {
-        activeScreen = ResultScreen(selectedAnswers);
+        activeScreen = ResultScreen(selectedAnswers, onRestart);
       });
     }
+  }
+
+  void onRestart() {
+    selectedAnswers = [];
+    setState(() {
+      activeScreen = QuestionScreen(onSelectAnswer: addAnswers);
+    });
   }
 
   @override
